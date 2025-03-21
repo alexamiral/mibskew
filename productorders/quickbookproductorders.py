@@ -70,7 +70,7 @@ if uploaded_file:
         df.to_csv(csv_buffer, index=False)
         return csv_buffer.getvalue()
 
-    csv_data = convert_df_to_csv(final_df)
+    csv_data = convert_df_to_csv(Quickbooks_newproducts)
         
     st.download_button(label ='Download CSV', data = csv_data, file_name = 'Quickbooks_NewProductImport.csv', mime ='text/csv' )
 
