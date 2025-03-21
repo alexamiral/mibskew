@@ -95,7 +95,7 @@ if uploaded_file:
 
     ####Second doctument 
 
-    stringsl = 'sku_ref	desc    	color	color_desc	sizes	size_desc	coo	UPC	sku_ref	hts code	price	HEIGHT	WIDTH	LENGTH	WEIGHT'
+    stringsl = 'stlye	desc    	color	color_desc	sizes	size_desc	coo	UPC	sku_ref		price	HEIGHT	WIDTH	LENGTH	WEIGHT'
 
     SKU_Upload_seconddoc = pd.DataFrame(columns = stringsl.split())
 
@@ -109,23 +109,24 @@ if uploaded_file:
 
     colornamelist = []
 
-
     for color in [i.split('-')[2] for i in itemsku]:
-        if colordf[['Unnamed: 4','Unnamed: 6']][colordf['Unnamed: 4'].str.lower() == color.lower()]['Unnamed: 6'].empty:
+        if colordf[['seasons color','Unnamed: 39']][colordf['seasons color'].str.lower() == color.lower()]['Unnamed: 39'].empty:
             colorname = 'missing'
         else:
-            temp = colordf[['Unnamed: 4','Unnamed: 6']][colordf['Unnamed: 4'].str.lower() == color.lower()]['Unnamed: 6']
+            temp = colordf[['seasons color','Unnamed: 39']][colordf['seasons color'].str.lower() == color.lower()]['Unnamed: 39']
+            
             colorname = temp.iloc[0]
 
         colornamelist.append(colorname)
 
 
-    SKU_Upload_seconddoc['sku_ref	desc'] = [i.split('-')[0] for i in itemsku]
+    
+    SKU_Upload_seconddoc['style']= [i.split('-')[0] for i in itemsku]
     SKU_Upload_seconddoc['desc'] = totalnamelist
-    SKU_Upload_seconddoc['color'] = [i.split('-')[1] for i in itemsku]
+    SKU_Upload_seconddoc['color'] = [i.split('-')[2] for i in itemsku]
     SKU_Upload_seconddoc['color_desc'] =  colornamelist
-    SKU_Upload_seconddoc['sizes'] = [i.split('-')[2] for i in itemsku]
-    SKU_Upload_seconddoc['size_desc']= [i.split('-')[2] for i in itemsku]
+    SKU_Upload_seconddoc['sizes'] = [i.split('-')[1] for i in itemsku]
+    SKU_Upload_seconddoc['size_desc']= [i.split('-')[1] for i in itemsku]
     SKU_Upload_seconddoc['coo'] = countrylist
     SKU_Upload_seconddoc['UPC']= itemsku
     SKU_Upload_seconddoc['sku_ref']= itemsku
@@ -137,21 +138,16 @@ if uploaded_file:
     SKU_Upload_seconddoc['WEIGHT'] =weightist
 
 
-    SKU_Upload_seconddoc = SKU_Upload_seconddoc[['sku_ref', 'desc', 'color', 'color_desc', 'sizes', 'size_desc', 'coo',
-       'UPC', 'sku_ref',  'hts code', 'price', 'HEIGHT', 'WIDTH', 'LENGTH', 'WEIGHT',
-       'sku_ref\tdesc']]
+    SKU_Upload_seconddoc = SKU_Upload_seconddoc[['style', 'desc', 'color', 'color_desc', 'sizes', 'size_desc', 'coo',
+       'UPC', 'sku_ref',  'hts code', 'price', 'HEIGHT', 'WIDTH', 'LENGTH', 'WEIGHT']]
 
-    def convert_df_to_csv(df):
-    # Use StringIO to write to a string buffer (instead of a file)
-        csv_buffer = io.StringIO()
-        df.to_csv(csv_buffer, index=False)
-        return csv_buffer.getvalue()
+    
 
     csv_data_seconddoc = convert_df_to_csv(SKU_Upload_seconddoc)
 
         
     st.download_button(label ='Download Quickbooks CSV', data = csv_data_qb, file_name = 'Quickbooks_NewProductImport.csv', mime ='text/csv' )
-    st.download_button(label ='Download Second Doc CSV', data = csv_data_seconddoc, file_name = 'SecondDoc.csv', mime ='text/csv' )
+    st.download_button(label ='Download NBD CSV', data = csv_data_seconddoc, file_name = 'NBDImport.csv', mime ='text/csv' )
 
         
 
