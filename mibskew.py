@@ -54,7 +54,7 @@ if uploaded_file:
         globals()[f'po_df_{i}'] = pd.DataFrame(columns = 'PURCHASE_ORDER_NUMBER	LINE_NUMBER	PRODUCT	QUANTITY	UNIT_OF_MEASURE_CODE	UNIT_OF_MEASURE_QTY	HOST_LINE_NUMBER'.split()
         )
 
-    onewlines = {}
+    ponewlines = {}
     counter = 1
     for i in df_dict:
         for rindex, row in globals()[f'table_{i}'].iterrows():
