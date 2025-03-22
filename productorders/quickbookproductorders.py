@@ -25,9 +25,9 @@ if uploaded_file:
     Quickbooks_newproducts = pd.DataFrame(columns =  ['Product/service name', 'Category',	'Item type',	'SKU',	'Sales description',	'Sales price/rate', 'Income account',	'Purchase description',	'Purchase cost',	'Expense account',	'Quantity on hand',  'Quantity as-of date',	'Reorder point',	'Inventory asset account'])
 
 
-    smallproductlist = productlist_df[productlist_df['NEW FOR SEASON'].notna()][['2X','3X','4X','5X', '6X', '7X', '8X','NEW FOR SEASON', 'SKU', 'Description', 'Retail', 'Category', 'Country of Origin', 'hts code', 'Height', 'Width', 'Length', 'Weight']]
+    smallproductlist = productlist_df[productlist_df['NEW FOR SEASON'].notna()][['1X','2X','3X','4X','5X', '6X', '7X', '8X','NEW FOR SEASON', 'SKU', 'Description', 'Retail', 'Category', 'Country of Origin', 'hts code', 'Height', 'Width', 'Length', 'Weight']]
 
-    sizes = ['2X', '3X', '4X', '5X', '6X', '7X', '8X']
+    sizes = ['1X','2X', '3X', '4X', '5X', '6X', '7X', '8X']
     newitems = []
     itemsku = []
     category = []
