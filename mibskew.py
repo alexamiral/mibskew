@@ -1,7 +1,10 @@
-import streamlit as st
 import pandas as pd
+import streamlit as st
 import io
 import openpyxl
+
+
+
 st.title('MIB Skew Orders')
 uploaded_file = st.file_uploader('Upload XLSX here:', type = ['xlsx'])
 
@@ -44,5 +47,34 @@ if uploaded_file:
         return csv_buffer.getvalue()
 
     csv_data = convert_df_to_csv(final_df)
+
+
+
+    ##### Po downloads 
+    for i in df_dict:
+        globals()[f'po_df_{i}'] = pd.DataFrame(columns = 'PURCHASE_ORDER_NUMBER	LINE_NUMBER	PRODUCT	QUANTITY	UNIT_OF_MEASURE_CODE	UNIT_OF_MEASURE_QTY	HOST_LINE_NUMBER'.split()
+        )
+
+    onewlines = {}
+    counter = 1
+    for i in df_dict:
+        for rindex, row in globals()[f'table_{i}'].iterrows():
+                for cname, value in row.items():
+                    if isinstance(value, int):
+                        temp = globals()[f'table_{i}'].loc[rindex, 'For SKU']
+                        ponewlines[counter] = {}
+                        ponewlines[counter]['PURCHASE_ORDER_NUMBER']=globals()[f'df_{i}'].iloc[0,:]['Unnamed: 13']
+                        ponewlines[counter]['LINE_NUMBER']=counter
+                        ponewlines[counter]['PRODUCT']=f"{str(i)}-{cname}-{temp}"
+                        ponewlines[counter]['QUANTITY']=value
+                        ponewlines[counter]['UNIT_OF_MEASURE_CODE']='EACH'
+                        ponewlines[counter]['UNIT_OF_MEASURE_QTY']=1
+                        ponewlines[counter]['HOST_LINE_NUMBER']=counter
+                        counter +=1
+
+    podownload = pd.DataFrame.from_dict(ponewlines, orient = 'index')
+
     
-    st.download_button(label ='Download CSV', data = csv_data, file_name = 'MIB_Order_SKUs.csv', mime ='text/csv' )
+    st.download_button(label ='MIB SKU CSV', data = csv_data, file_name = 'MIB_Order_SKUs.csv', mime ='text/csv' )
+    st.download_button(label ='PO Download CSV', data = podownload, file_name = 'Po_Downloads.csv', mime ='text/csv' )
+
