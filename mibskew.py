@@ -73,8 +73,9 @@ if uploaded_file:
                         counter +=1
 
     podownload = pd.DataFrame.from_dict(ponewlines, orient = 'index')
+    pocsv = convert_df_to_csv(podownload)
 
     
     st.download_button(label ='MIB SKU CSV', data = csv_data, file_name = 'MIB_Order_SKUs.csv', mime ='text/csv' )
-    st.download_button(label ='PO Download CSV', data = podownload, file_name = 'Po_Downloads.csv', mime ='text/csv' )
+    st.download_button(label ='PO Download CSV', data = pocsv, file_name = 'Po_Downloads.csv', mime ='text/csv' )
 
