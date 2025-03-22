@@ -176,7 +176,7 @@ if uploaded_file:
     shopify['Variant Price'] = sales
     shopify['Variant SKU'] = itemsku
     shopify['Variant Barcode'] = itemsku
-    shopify['Variant Cost per item'] = purchasecosts
+    shopify['Cost per item'] = purchasecosts
 
 
     shopify['Variant Grams'] = 0.181436948
