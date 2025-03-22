@@ -189,7 +189,7 @@ if uploaded_file:
     shopify['Handle']= shopify['Title'].str.replace(" ", "-").str.lower()
 
     shopify['Vendor'] = 'MIB Clothing'
-    shopify['Product Category'] = 'Apparel & Accessories > Clothing'
+    shopify['Product Category'] = ['Apparel & Accessories > ' +i for i in category]
     shopify['Option1 Name'] = 'Size'
     shopify['Option2 Name'] = 'Color'
     shopify['Gift Card'] = 'FALSE'
@@ -202,7 +202,7 @@ if uploaded_file:
                                                         'Option1 Name', 'Option2 Name',
                                                     'Gift Card', 'Included / United States',
                                                         'Included / Canada', 'Included / International',
-                                                    'Status']] = ""
+                                                    'Status',  'Product Category']] = ""
 
 
 
