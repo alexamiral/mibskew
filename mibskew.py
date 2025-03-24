@@ -103,12 +103,12 @@ if uploaded_file:
                  cells=dict(values=[df_dict_keys,itemcountvalues ], fill_color ='lightblue'
                            ))
                      ])
-    fig.show()
-
-
-
-
     
+
+
+
+
+    st.write(fig)
     st.download_button(label ='MIB SKU CSV', data = csv_data, file_name = 'MIB_Order_SKUs.csv', mime ='text/csv' )
     st.download_button(label ='PO Download CSV', data = csvpodownload, file_name = 'Po_Downloads.csv', mime ='text/csv' )
 
