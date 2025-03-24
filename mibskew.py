@@ -98,7 +98,7 @@ if uploaded_file:
 
 
     fig = go.Figure(data=[go.Table(
-    header=dict(values=['Order', 'Item Count'],
+    header=dict(values=['SKU', 'Item Count'],
     fill_color='blue'),
                  cells=dict(values=[df_dict_keys,itemcountvalues ], fill_color ='lightblue'
                            ))
