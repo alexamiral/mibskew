@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import io
 import openpyxl
+import plotly.graph_objects as go
 
 
 
@@ -73,6 +74,34 @@ if uploaded_file:
 
     podownload = pd.DataFrame.from_dict(ponewlines, orient = 'index')
     csvpodownload = convert_df_to_csv(podownload)
+
+
+    itemcountdict = {}
+    for i in df_dict:
+        itemcount = 0
+        for index, row in globals()[f'table_{i}'].iterrows():
+            itemcount += row.map(isint).sum()
+        itemcountdict[i] = itemcount
+        globals()[f'itemcount_{i}'] = itemcount
+
+
+    df_dict_keys = list(df_dict.keys())
+    df_dict_keys.append('TOTAL')
+
+    itemcountvalues =list(itemcountdict.values())
+    itemcountvalues.append(sum(itemcountvalues))
+
+
+    fig = go.Figure(data=[go.Table(
+    header=dict(values=['Order', 'Item Count'],
+    fill_color='blue'),
+                 cells=dict(values=[df_dict_keys,itemcountvalues ], fill_color ='lightblue'
+                           ))
+                     ])
+    fig.show()
+
+
+
 
     
     st.download_button(label ='MIB SKU CSV', data = csv_data, file_name = 'MIB_Order_SKUs.csv', mime ='text/csv' )
