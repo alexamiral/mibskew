@@ -75,6 +75,11 @@ if uploaded_file:
     podownload = pd.DataFrame.from_dict(ponewlines, orient = 'index')
     csvpodownload = convert_df_to_csv(podownload)
 
+    def isint(x):
+    if isinstance(x, int) and x>0:
+        return x
+    
+
 
     itemcountdict = {}
     for i in df_dict:
